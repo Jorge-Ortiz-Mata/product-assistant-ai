@@ -1,9 +1,5 @@
 import React from "react"
 
-export interface DocumentsFormProps {
-  pdf: File | undefined,
-}
-
 export interface ConversationFormProps {
   message: string,
 }

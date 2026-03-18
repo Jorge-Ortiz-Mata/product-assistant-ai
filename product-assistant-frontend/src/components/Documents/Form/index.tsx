@@ -1,28 +1,33 @@
 "use client";
 import Link from "next/link";
-import { DocumentsFormProps } from "@/interfaces";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
+import { axiosInstance } from "@/services/api_service";
 
 const DocumentsForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [params, setParams] = useState<DocumentsFormProps>({ pdf: undefined });
+  const [pdf, setPdf] = useState<File | undefined>(undefined);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setParams((prevState) => {
-      return { ...prevState, [name]: value};
-    });
+    const { files } = e.target;
+    if(files) setPdf(files[0]);
   }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if(!params.pdf) return alert('El pdf no debe estar en blanco')
+    setIsLoading(true);
+    if(!pdf) return alert('Sube un documento para cargar la información al servidor')
 
     try {
-      // await handleSubmit(e);
+      const formData = new FormData();
+      formData.append('pdf', pdf);
+
+      await axiosInstance.post('/document/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
+      alert("Hurra! El contenido ha sido cargado existosamente")
     } catch (error) {
       console.log(error);
       alert("Hubo un error al enviar tu información. Por favor, intente más tarde");
@@ -48,13 +53,11 @@ const DocumentsForm = () => {
             name="pdf"
             id="pdf"
             onChange={onChange}
-            required={true}
             accept="application/pdf"
             multiple={false}
             className="bg-black rounded-xl text-white font-light p-4 w-full"
           />
         </div>
-
         <div className="flex items-center justify-end">
           {
             isLoading
