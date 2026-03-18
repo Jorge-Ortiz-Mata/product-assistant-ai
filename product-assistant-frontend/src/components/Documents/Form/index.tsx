@@ -1,14 +1,14 @@
 "use client";
-import { ConversationFormProps } from "@/interfaces";
 import Link from "next/link";
+import { DocumentsFormProps } from "@/interfaces";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
 
-const ConversationForm = () => {
+const DocumentsForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [params, setParams] = useState<ConversationFormProps>({ message: '' });
+  const [params, setParams] = useState<DocumentsFormProps>({ pdf: undefined });
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setParams((prevState) => {
@@ -19,9 +19,7 @@ const ConversationForm = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if(params.message.length < 10) {
-      return alert('El mensaje debe tener al menos 10 caracteres')
-    }
+    if(!params.pdf) return alert('El pdf no debe estar en blanco')
 
     try {
       // await handleSubmit(e);
@@ -38,21 +36,21 @@ const ConversationForm = () => {
       <div className="flex w-full justify-end">
         <Link
           className="text-cyan-400 italic text-sm duration-300 hover:text-cyan-600"
-          href="/documents"
-          >
-          Cargar documentos
+          href="/conversation"
+        >
+          Regresar
         </Link>
       </div>
       <form onSubmit={onSubmit} className="flex flex-col gap-5">
         <div className="flex flex-col">
-          <textarea
-            id="message"
-            name="message"
-            cols={15}
-            rows={4}
+          <input
+            type="file"
+            name="pdf"
+            id="pdf"
             onChange={onChange}
-            placeholder="¿Cuanto cuesta el nuevo juego de Halo?"
             required={true}
+            accept="application/pdf"
+            multiple={false}
             className="bg-black rounded-xl text-white font-light p-4 w-full"
           />
         </div>
@@ -62,7 +60,7 @@ const ConversationForm = () => {
             isLoading
             ? <BeatLoader size={12} color="#22D3EE" />
             : <button type="submit" className="font-medium rounded-xl px-7 py-3 bg-linear-to-r from-blue-500 to-cyan-800 cursor-pointer">
-                Enviar solicitud
+                Subir documento
               </button>
           }
         </div>
@@ -71,4 +69,4 @@ const ConversationForm = () => {
   )
 }
 
-export default ConversationForm;
+export default DocumentsForm;
