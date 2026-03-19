@@ -2,9 +2,9 @@
 import ConversationForm from "@/components/Conversation/Form";
 import ConversationHero from "@/components/Conversation/Hero";
 import ConversationProduct from "@/components/Conversation/Product";
+import NavBar from "@/components/shared/Navbar";
 import PageContainer from "@/components/shared/PageContainer";
-import { ProductInfoProps, ProductProps } from "@/interfaces";
-import { productDummy } from "@/utils/productDummy";
+import { ProductProps } from "@/interfaces";
 import { useState } from "react";
 
 export default function ConversationPage() {
@@ -17,6 +17,7 @@ export default function ConversationPage() {
 
   return (
     <PageContainer>
+      <NavBar />
       <section className="flex flex-col w-full max-w-5xl mx-auto h-screen gap-10">
         <ConversationHero />
         <ConversationForm handleAIResponse={onProductUpdate} />

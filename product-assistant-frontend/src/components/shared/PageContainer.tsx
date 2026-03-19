@@ -12,8 +12,7 @@ const PageContainer = ({ children }:PageContainerProps) => {
       to-[#25272f]
       text-white
       overflow-auto
-      py-20
-      px-5
+      pb-20
       "
     >
       {children}

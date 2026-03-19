@@ -16,7 +16,7 @@ const HomeHero = () => {
         <div className="flex items-center justify-center w-full">
           <Link
             href="/conversation"
-            className="px-10 py-2 bg-linear-to-r from-cyan-800 to-blue-800 rounded"
+            className="font-medium rounded-xl px-7 py-3 bg-linear-to-r from-blue-500 to-cyan-800 cursor-pointer"
           >
             Comenzar
           </Link>

@@ -1,14 +1,15 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
+import { AxiosError } from "axios";
 import { BeatLoader } from "react-spinners";
-import { ConversationFormParamsProps, ConversationFormProps } from "@/interfaces";
 import ConversationFormPills from "./Pills";
+import { ConversationFormParamsProps, ConversationFormProps } from "@/interfaces";
 import { axiosInstance } from "@/services/api_service";
 
 const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [params, setParams] = useState<ConversationFormParamsProps>({ message: '' });
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
@@ -27,13 +28,14 @@ const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(undefined);
 
     try {
       const response = await axiosInstance.post('/conversate', params);
       handleAIResponse(response.data.product);
     } catch (error) {
-      console.log(error);
-      alert("Hubo un error al enviar tu información. Por favor, intente más tarde");
+      const err = error as AxiosError<any>;
+      setError(err.response?.data.detail[0].msg)
     } finally {
       setIsLoading(false);
     }
@@ -41,14 +43,6 @@ const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
 
   return(
     <section className="flex flex-col gap-3">
-      <div className="flex w-full justify-end">
-        <Link
-          className="text-cyan-400 italic text-sm duration-300 hover:text-cyan-600"
-          href="/documents"
-          >
-          Cargar documentos
-        </Link>
-      </div>
       <form onSubmit={handleOnSubmit} className="flex flex-col gap-5">
         <div className="flex flex-col">
           <textarea
@@ -59,9 +53,9 @@ const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
             onChange={onChange}
             value={params.message}
             placeholder="Dime acerca de ..."
-            required={true}
             className="bg-black rounded-xl text-white font-light p-4 w-full"
           />
+          { error && <div className="text-sm text-red-500">{error}</div> }
         </div>
         <ConversationFormPills onClick={setMessage} />
         <div className="flex items-center justify-end">
