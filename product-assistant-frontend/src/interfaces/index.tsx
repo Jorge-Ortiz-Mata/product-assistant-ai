@@ -1,4 +1,8 @@
-import React from "react"
+import React from "react";
+
+export interface HomeHeroProps {
+  isActive: boolean;
+}
 
 export interface ProductInfoProps {
   product: ProductProps;

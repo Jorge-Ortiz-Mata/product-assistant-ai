@@ -1,6 +1,7 @@
+import { HomeHeroProps } from "@/interfaces";
 import Link from "next/link";
 
-const HomeHero = () => {
+const HomeHero = ({ isActive }:HomeHeroProps) => {
   return(
     <section className="mx-auto w-full max-w-5xl flex flex-col">
       <div className="flex flex-col gap-5">
@@ -14,12 +15,18 @@ const HomeHero = () => {
         </div>
 
         <div className="flex items-center justify-center w-full">
-          <Link
-            href="/conversation"
-            className="font-medium rounded-xl px-7 py-3 bg-linear-to-r from-blue-500 to-cyan-800 cursor-pointer"
-          >
-            Comenzar
-          </Link>
+          {
+            isActive
+            ? <Link
+                href="/conversation"
+                className="font-medium rounded-xl px-7 py-3 bg-linear-to-r from-blue-500 to-cyan-800 cursor-pointer"
+              >
+                Comenzar
+              </Link>
+            : <div className="text-gray-400 underline">
+                Contactar al administrador para acceder al recurso
+              </div>
+          }
         </div>
       </div>
     </section>
