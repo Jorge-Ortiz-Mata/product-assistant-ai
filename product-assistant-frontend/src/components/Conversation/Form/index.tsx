@@ -6,7 +6,7 @@ import { ConversationFormParamsProps, ConversationFormProps } from "@/interfaces
 import ConversationFormPills from "./Pills";
 import { axiosInstance } from "@/services/api_service";
 
-const ConversationForm = () => {
+const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [params, setParams] = useState<ConversationFormParamsProps>({ message: '' });
 
@@ -30,7 +30,7 @@ const ConversationForm = () => {
 
     try {
       const response = await axiosInstance.post('/conversate', params);
-      console.log(response.data);
+      handleAIResponse(response.data.product);
     } catch (error) {
       console.log(error);
       alert("Hubo un error al enviar tu información. Por favor, intente más tarde");

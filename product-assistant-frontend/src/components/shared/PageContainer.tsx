@@ -11,6 +11,9 @@ const PageContainer = ({ children }:PageContainerProps) => {
       from-[#020617]
       to-[#25272f]
       text-white
+      overflow-auto
+      py-20
+      px-5
       "
     >
       {children}

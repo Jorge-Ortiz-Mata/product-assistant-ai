@@ -6,6 +6,4 @@ conversation_router = APIRouter()
 
 @conversation_router.post('/conversate')
 async def conversate(conversation: Conversation):
-  return {
-    "data": ConversationProcessor.invoke(conversation.message)
-  }
+  return ConversationProcessor.invoke(conversation.message)
