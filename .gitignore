@@ -1,0 +1,5 @@
+# Ignore env variables
+/*/*.env
+
+# Ignore chromba_db sqlite folder
+/product-assistant-backend/app/services/chroma_db

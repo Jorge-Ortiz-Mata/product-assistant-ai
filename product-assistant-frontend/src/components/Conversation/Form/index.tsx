@@ -1,30 +1,36 @@
 "use client";
-import { ConversationFormProps } from "@/interfaces";
 import Link from "next/link";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
+import { ConversationFormParamsProps, ConversationFormProps } from "@/interfaces";
+import ConversationFormPills from "./Pills";
+import { axiosInstance } from "@/services/api_service";
 
 const ConversationForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [params, setParams] = useState<ConversationFormProps>({ message: '' });
+  const [params, setParams] = useState<ConversationFormParamsProps>({ message: '' });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
 
     setParams((prevState) => {
-      return { ...prevState, [name]: value};
+      return { ...prevState, message: value};
     });
   }
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const setMessage = (label: string) => {
+    setParams((prevState) => {
+      return { ...prevState, message: label};
+    });
+  }
 
-    if(params.message.length < 10) {
-      return alert('El mensaje debe tener al menos 10 caracteres')
-    }
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
 
     try {
-      // await handleSubmit(e);
+      const response = await axiosInstance.post('/conversate', params);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
       alert("Hubo un error al enviar tu información. Por favor, intente más tarde");
@@ -43,7 +49,7 @@ const ConversationForm = () => {
           Cargar documentos
         </Link>
       </div>
-      <form onSubmit={onSubmit} className="flex flex-col gap-5">
+      <form onSubmit={handleOnSubmit} className="flex flex-col gap-5">
         <div className="flex flex-col">
           <textarea
             id="message"
@@ -51,12 +57,13 @@ const ConversationForm = () => {
             cols={15}
             rows={4}
             onChange={onChange}
-            placeholder="¿Cuanto cuesta el nuevo juego de Halo?"
+            value={params.message}
+            placeholder="Dime acerca de ..."
             required={true}
             className="bg-black rounded-xl text-white font-light p-4 w-full"
           />
         </div>
-
+        <ConversationFormPills onClick={setMessage} />
         <div className="flex items-center justify-end">
           {
             isLoading

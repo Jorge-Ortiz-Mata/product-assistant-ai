@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { axiosInstance } from "@/services/api_service";
@@ -15,9 +14,9 @@ const DocumentsForm = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
     if(!pdf) return alert('Sube un documento para cargar la información al servidor')
-
+    setIsLoading(true);
+      
     try {
       const formData = new FormData();
       formData.append('pdf', pdf);
@@ -38,14 +37,6 @@ const DocumentsForm = () => {
 
   return(
     <section className="flex flex-col gap-3">
-      <div className="flex w-full justify-end">
-        <Link
-          className="text-cyan-400 italic text-sm duration-300 hover:text-cyan-600"
-          href="/conversation"
-        >
-          Regresar
-        </Link>
-      </div>
       <form onSubmit={onSubmit} className="flex flex-col gap-5">
         <div className="flex flex-col">
           <input
@@ -55,7 +46,7 @@ const DocumentsForm = () => {
             onChange={onChange}
             accept="application/pdf"
             multiple={false}
-            className="bg-black rounded-xl text-white font-light p-4 w-full"
+            className="bg-black duration-300 hover:bg-zinc-800 rounded-xl text-white font-light p-4 w-full cursor-pointer"
           />
         </div>
         <div className="flex items-center justify-end">

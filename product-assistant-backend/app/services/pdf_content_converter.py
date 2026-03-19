@@ -1,20 +1,22 @@
 import io
 from pypdf import PdfReader
+from langchain_core.documents import Document
 
 # Esta clase convierte los bits del contenido del PDF y los transforma
 # a palabras normales, juntandolo todo en un string.
-class ProcessPDFContent:
+class PDFContentConverter:
   @classmethod
   def invoke(cls, content):
     pdf_stream = io.BytesIO(content)
     reader = PdfReader(pdf_stream)
-    full_text = ""
+    documents = []
 
-    for page in reader.pages:
+    for i, page in enumerate(reader.pages):
       extracted_text = page.extract_text()
       
       if extracted_text:
-        full_text += extracted_text + "\n"
-      full_content = " ".join(full_text.split())
+        clean_text = " ".join(extracted_text.split())
+        doc = Document(page_content=clean_text, metadata={"page": i + 1})
+        documents.append(doc)
 
-    return full_content
+    return documents

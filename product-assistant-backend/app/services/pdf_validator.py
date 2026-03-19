@@ -4,7 +4,7 @@ ALLOWED_MIME_TYPES = ["application/pdf"]
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 # Esta clase valida el tipo de contenido PDF y el tamaño 5 MB
-class ValidatePDF:
+class PDFValidator:
   @classmethod
   async def invoke(cls, pdf):
     content = await pdf.read()
