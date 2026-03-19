@@ -24,7 +24,7 @@ const ProductInfo = ({ product }:ProductInfoProps) => {
           <div className="flex flex-col gap-2 items-start">
             {
               product.highlights.map(
-                item => <div className="text-xs text-cyan-400 border border-cyan-400 bg-cyan-950 px-3 py-1 rounded-xl">{item}</div>
+                (item, index) => <div key={index} className="text-xs text-cyan-400 border border-cyan-400 bg-cyan-950 px-3 py-1 rounded-xl">{item}</div>
               )
             }
           </div>
@@ -34,7 +34,7 @@ const ProductInfo = ({ product }:ProductInfoProps) => {
           <div className="flex flex-col gap-2 items-start">
             {
               product.prices_list.map(
-                item => <div className="text-xs text-gray-200 border border-gray-200 bg-gray-950 px-3 py-1 rounded-xl">
+                (item, index) => <div key={index} className="text-xs text-gray-200 border border-gray-200 bg-gray-950 px-3 py-1 rounded-xl">
                   <span className="font-medium text-emerald-400">{item.amount}</span> - <span>{item.name}</span>
                 </div>
               )
@@ -46,7 +46,7 @@ const ProductInfo = ({ product }:ProductInfoProps) => {
           <div className="flex flex-col gap-2 items-start">
             {
               product.specifications.map(
-                item => <div className="text-xs text-cyan-400 border border-cyan-400 bg-cyan-950 px-3 py-1 rounded-xl">{item}</div>
+                (item, index) => <div key={index} className="text-xs text-cyan-400 border border-cyan-400 bg-cyan-950 px-3 py-1 rounded-xl">{item}</div>
               )
             }
           </div>
