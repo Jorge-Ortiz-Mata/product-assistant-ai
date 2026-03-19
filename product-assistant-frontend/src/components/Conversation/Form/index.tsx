@@ -35,6 +35,7 @@ const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
       handleAIResponse(response.data.product);
     } catch (error) {
       const err = error as AxiosError<any>;
+      console.log(err)
       setError(err.response?.data.detail[0].msg)
     } finally {
       setIsLoading(false);
