@@ -4,8 +4,8 @@ from app.services.embeddings_generator import EmbeddingsGenerator
 
 class PDFIngestionProcessor:
   @classmethod
-  async def invoke(cls, content):
-    documents = PDFContentConverter.invoke(content)
-    chunks = PDFContentSplitter.invoke(documents)
-    await EmbeddingsGenerator.invoke(chunks)
+  async def invoke(cls, content_as_bytes):
+    content_readable = PDFContentConverter.invoke(content_as_bytes)
+    documents_list = PDFContentSplitter.invoke(content_readable)
+    await EmbeddingsGenerator.invoke(documents_list)
     return
