@@ -24,3 +24,7 @@ api_router.include_router(document_router)
 api_router.include_router(ff_router)
 
 app.include_router(api_router, prefix="/api/v1")
+
+@app.post('/api/v1/up')
+def up():
+  return { "Halo": "Reach" }
