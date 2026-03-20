@@ -1,25 +1,23 @@
-# Use a Node 22 base image
-FROM node:22
+# 1. Usamos una imagen de Node.js básica
+FROM node:22-alpine
 
-# Installing Docker containers dependencies
-RUN apt-get update -qq \
-    && apt-get install -y nodejs \
-    ca-certificates \
-    curl \
-    git \
-    yarn \
-    sudo \
-    openssl \
-    && rm -rf /var/lib/apt/lists/*
+# 2. Creamos la carpeta de trabajo
+WORKDIR /product-assistant-frontend
 
-# Setting working directory.
-WORKDIR /workspaces/product-assistant-frontend
+# 3. Copiamos los archivos de dependencias
+COPY package.json package-lock.json ./
 
-# Copy the root folder to the docker container.
-COPY package.json package-lock.json .
+# 4. Instalamos las dependencias normales
+RUN npm install
 
-# Install node dependencies
-RUN yarn install
+# 5. Copiamos el resto de tu código
+COPY . .
 
-# Keep the node_modules folder. This prevents to re-run yarn install or npm install
-VOLUME /workspaces/product-assistant-frontend/node_modules
+# 6. Construimos la aplicación
+RUN npm run build
+
+# 7. Exponemos el puerto 3000
+EXPOSE 3000
+
+# 8. Arrancamos Next.js de la forma tradicional
+CMD ["npm", "start"]

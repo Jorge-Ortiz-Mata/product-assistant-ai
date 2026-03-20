@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import { AxiosError } from "axios";
 import { BeatLoader } from "react-spinners";
 import ConversationFormPills from "./Pills";
 import { ConversationFormParamsProps, ConversationFormProps } from "@/interfaces";
 import { axiosInstance } from "@/services/api_service";
+import axios from "axios";
 
 const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,9 +34,12 @@ const ConversationForm = ({ handleAIResponse }:ConversationFormProps) => {
       const response = await axiosInstance.post('/conversate', params);
       handleAIResponse(response.data.product);
     } catch (error) {
-      const err = error as AxiosError<any>;
-      console.log(err)
-      setError(err.response?.data.detail[0].msg)
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.detail?.[0]?.msg || "Error de conexión con el servidor";
+        setError(errorMessage);
+      } else {
+        setError("Ocurrió un error inesperado en la aplicación");
+      }
     } finally {
       setIsLoading(false);
     }

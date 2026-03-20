@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { CiSquareChevLeft } from "react-icons/ci";
-
 const DocumentsHero = () => {
   return(
     <section className="flex flex-col w-full">
