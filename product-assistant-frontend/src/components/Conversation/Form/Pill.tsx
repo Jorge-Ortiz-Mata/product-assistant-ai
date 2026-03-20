@@ -3,7 +3,7 @@ import { ConversationFormPillProps } from "@/interfaces";
 const ConversationFormPill = ({ label, onClick }:ConversationFormPillProps) => {
   return(
     <div
-      className="bg-cyan-800 cursor-pointer rounded-full px-5 py-1.5 text-sm font-light duration-300 hover:bg-cyan-900"
+      className="bg-linear-to-r from-cyan-600 to-cyan-950 cursor-pointer rounded-full px-5 py-1.5 text-sm font-light duration-300"
       onClick={() => onClick(label)}
     >
       {label}

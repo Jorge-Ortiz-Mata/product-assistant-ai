@@ -1,4 +1,5 @@
 import os
+import uuid
 import chromadb
 from dotenv import load_dotenv
 from app.utils.constants import LLM_EMBEDDING
@@ -22,8 +23,8 @@ class EmbeddingsGenerator:
 
     ids_formatted = []
 
-    for i in range(len(documents_list)):
-      ids_formatted.append(f"{i + 1}")
+    for _ in documents_list:
+      ids_formatted.append(str(uuid.uuid4()))
 
     return collection.add(
       ids=ids_formatted,
