@@ -3,10 +3,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class PDFContentSplitter:
   @classmethod
-  def invoke(cls, documents):
+  def invoke(cls, content_readable):
     text_splitter = RecursiveCharacterTextSplitter(
       chunk_size=PDF_CHUNK_SIZE,
       chunk_overlap=PDF_CHUNK_OVERLAP,
     )
 
-    return text_splitter.split_documents(documents)
+    return text_splitter.split_text(content_readable)

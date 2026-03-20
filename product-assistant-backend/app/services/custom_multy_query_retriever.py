@@ -1,4 +1,5 @@
 import os
+import chromadb
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
 from langchain_classic.retrievers.multi_query import MultiQueryRetriever
@@ -6,7 +7,6 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGener
 from app.utils.constants import (
   LLM,
   LLM_EMBEDDING,
-  LOCAL_DB_NAME,
   SEARCH_TYPE,
   SEARCH_KWARGS,
   SCORE_THRESHOLD,
@@ -40,9 +40,14 @@ class CustomMultyQueryRetriever:
 
   @classmethod
   def vectorstore(cls):
-    root_directory = os.path.dirname(os.path.abspath(__file__))
+    client = chromadb.CloudClient(
+      api_key=os.getenv("CHROMA_API_TOKEN"),
+      tenant=os.getenv("CHROMA_TENANT"),
+      database=os.getenv("CHROMA_DATABASE"),
+    )
 
     return Chroma(
+      client=client,
+      collection_name=os.getenv("CHROMA_COLLECTION"),
       embedding_function=GoogleGenerativeAIEmbeddings(model=LLM_EMBEDDING),
-      persist_directory=os.path.join(root_directory, LOCAL_DB_NAME)
     )
