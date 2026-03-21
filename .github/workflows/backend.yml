@@ -40,25 +40,19 @@ jobs:
       - name: Push Docker Image to Artifact Registry
         run: docker push us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest
 
-      # - name: Deploy
-      #   uses: google-github-actions/deploy-cloudrun@v0.9.0
-      #   with:
-      #     region: us-central1
-      #     service: paqueteria-martinez-production
-      #     image: us-central1-docker.pkg.dev/paqueteria-martinez-ids/paqueteria-martinez/paqueteria-martinez:production
-      #     secrets: |
-      #       RAILS_MASTER_KEY=rails-master-key:latest
-      #       PSQL_URI=postgres-uri-production:latest
-      #       SERVICE_ACCOUNT=service-account-json:latest
-      #       SENDGRID_AUTH_EMAIL=sendgrid-auth-email:latest
-      #       SENDGRID_API_KEY=sendgrid-api-key:latest
-      #       WHATSAPP_SID=whatsapp-sid:latest
-      #       WHATSAPP_AUTH_TOKEN=whatsapp-auth-token:latest
-      #     env_vars: |
-      #       DOMAIN_URL=https://paqueteria-martinez-production-6yim6fxlza-uc.a.run.app
-      #     flags: |-
-      #       --port 3000
-      #       --cpu=1
-      #       --allow-unauthenticated
-      #       --platform managed
-      #       --min-instances 0
+      - name: Deploy
+        uses: google-github-actions/deploy-cloudrun@v0.9.0
+        with:
+          region: us-central1
+          service: prodcut-assistant-backend
+          image: us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest
+          secrets: |
+            GOOGLE_API_KEY=product-assistant-ai-google-api-key:latest
+          env_vars: |
+            DOMAIN_URL=https://paqueteria-martinez-production-6yim6fxlza-uc.a.run.app
+          flags: |-
+            --port 8000
+            --cpu=1
+            --allow-unauthenticated
+            --platform managed
+            --min-instances 0
