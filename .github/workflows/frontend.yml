@@ -47,7 +47,7 @@ jobs:
           service: product-assistant-frontend
           image: us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-frontend:latest
           flags: |-
-            --port 8000
+            --port 3000
             --cpu=1
             --allow-unauthenticated
             --platform managed
