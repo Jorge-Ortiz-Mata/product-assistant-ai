@@ -6,6 +6,7 @@ from routes.conversation_router import conversation_router
 
 origins = [
   "http://localhost:3000",
+  "https://product-assistant-frontend-latest.onrender.com"
 ]
 
 app = FastAPI()
