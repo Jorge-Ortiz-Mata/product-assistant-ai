@@ -1,4 +1,4 @@
-name: Backend - Deploy to GCP
+name: Frontend - Deploy to GCP
 
 on:
   workflow_dispatch:
@@ -35,25 +35,17 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build Docker Image
-        run: docker build -t us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest ./product-assistant-backend
+        run: docker build -t us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-frontend:latest ./product-assistant-frontend
 
       - name: Push Docker Image to Artifact Registry
-        run: docker push us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest
+        run: docker push us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-frontend:latest
 
       - name: Deploy
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           region: us-central1
-          service: product-assistant-backend
-          image: us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest
-          secrets: |
-            GOOGLE_API_KEY=product-assistant-ai-google-api-key:latest
-            CHROMA_API_TOKEN=product-assistant-ai-chroma-api-token:latest
-            CHROMA_TENANT=product-assistant-ai-chroma-tenant:latest
-            CHROMA_DATABASE=product-assistant-ai-chroma-database:latest
-            CHROMA_COLLECTION=product-assistant-ai-chroma-collection:latest
-          env_vars: |
-            DOMAIN_URL=https://paqueteria-martinez-production-6yim6fxlza-uc.a.run.app
+          service: product-assistant-frontend
+          image: us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-frontend:latest
           flags: |-
             --port 8000
             --cpu=1
