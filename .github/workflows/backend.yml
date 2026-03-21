@@ -41,10 +41,10 @@ jobs:
         run: docker push us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest
 
       - name: Deploy
-        uses: google-github-actions/deploy-cloudrun@v0.9.0
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
           region: us-central1
-          service: prodcut-assistant-backend
+          service: product-assistant-backend
           image: us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest
           secrets: |
             GOOGLE_API_KEY=product-assistant-ai-google-api-key:latest
@@ -56,3 +56,4 @@ jobs:
             --allow-unauthenticated
             --platform managed
             --min-instances 0
+            --service-account paqueteria-martinez-st-louis@paqueteria-martinez-st-louis.iam.gserviceaccount.com
