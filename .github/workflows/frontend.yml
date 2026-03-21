@@ -1,26 +1,26 @@
-name: Google Cloud Run
+# name: Google Cloud Run
 
-on:
-  workflow_dispatch:
-  # Trigger the workflow on pushes to the main branch, including PR merges:
-  push:
-    branches:
-      - main
+# on:
+#   workflow_dispatch:
+#   # Trigger the workflow on pushes to the main branch, including PR merges:
+#   push:
+#     branches:
+#       - main
 
-# Generate a GitHub token that can be exchanged with Google Cloud - see
-# https://github.com/google-github-actions/auth/tree/v0.6.0#setting-up-workload-identity-federation
-permissions:
-  contents: read
-  id-token: write
-  deployments: write
+# # Generate a GitHub token that can be exchanged with Google Cloud - see
+# # https://github.com/google-github-actions/auth/tree/v0.6.0#setting-up-workload-identity-federation
+# permissions:
+#   contents: read
+#   id-token: write
+#   deployments: write
 
-jobs:
-  cloud-run: 
-    name: GCP Cloud Run
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3.1.0
+# jobs:
+#   cloud-run: 
+#     name: GCP Cloud Run
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3.1.0
 
-      - name: Access to backend
-        run: cd product-assistant-frontend && ls
+#       - name: Access to backend
+#         run: cd product-assistant-frontend && ls
