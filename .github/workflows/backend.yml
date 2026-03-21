@@ -24,3 +24,46 @@ jobs:
 
       - name: Access to backend
         run: cd product-assistant-backend && ls
+
+      - name: Set additional variables
+        id: variables
+        uses: icalia-actions/common-variables@v0.0.3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1.0.0
+        with:
+          workload_identity_provider: projects/28604544957/locations/global/workloadIdentityPools/paqueteria-martinez-st-louis/providers/github
+          service_account: paqueteria-martinez-st-louis@paqueteria-martinez-st-louis.iam.gserviceaccount.com
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1.0.0
+
+      - name: Build Docker Image
+        run: docker build -t us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest .
+
+      # - name: Push Docker Image to Artifact Registry
+      #   run: docker push us-central1-docker.pkg.dev/paqueteria-martinez-st-louis/product-assistant/product-assistant-backend:latest
+
+      # - name: Deploy
+      #   uses: google-github-actions/deploy-cloudrun@v0.9.0
+      #   with:
+      #     region: us-central1
+      #     service: paqueteria-martinez-production
+      #     image: us-central1-docker.pkg.dev/paqueteria-martinez-ids/paqueteria-martinez/paqueteria-martinez:production
+      #     secrets: |
+      #       RAILS_MASTER_KEY=rails-master-key:latest
+      #       PSQL_URI=postgres-uri-production:latest
+      #       SERVICE_ACCOUNT=service-account-json:latest
+      #       SENDGRID_AUTH_EMAIL=sendgrid-auth-email:latest
+      #       SENDGRID_API_KEY=sendgrid-api-key:latest
+      #       WHATSAPP_SID=whatsapp-sid:latest
+      #       WHATSAPP_AUTH_TOKEN=whatsapp-auth-token:latest
+      #     env_vars: |
+      #       DOMAIN_URL=https://paqueteria-martinez-production-6yim6fxlza-uc.a.run.app
+      #     flags: |-
+      #       --port 3000
+      #       --cpu=1
+      #       --allow-unauthenticated
+      #       --platform managed
+      #       --min-instances 0
+
