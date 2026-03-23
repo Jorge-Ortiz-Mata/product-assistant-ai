@@ -6,7 +6,7 @@ from routes.conversation_router import conversation_router
 
 origins = [
   "http://localhost:3000",
-  "https://product-assistant-frontend-28604544957.us-central1.run.app/",
+  "https://product-assistant-frontend-28604544957.us-central1.run.app",
 ]
 
 app = FastAPI()
