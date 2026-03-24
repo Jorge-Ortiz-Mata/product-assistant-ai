@@ -49,6 +49,7 @@ jobs:
           flags: |-
             --port 3000
             --cpu=1
+            --memory=512Mi
             --allow-unauthenticated
             --platform managed
             --min-instances 0
