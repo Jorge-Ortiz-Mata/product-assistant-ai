@@ -8,9 +8,9 @@ Utilizando una arquitectura **RAG (Retrieval-Augmented Generation)**, el sistema
 
 Para referencia rápida del desarrollador, aquí están los enlaces del entorno en vivo:
 
-* **Frontend (Aplicación Web):** [[Ingresa tu URL de Next.js / Cloud Run aquí](https://product-assistant-frontend-28604544957.us-central1.run.app/)]
-* **Backend (API de FastAPI):** [[Ingresa tu URL de FastAPI / Cloud Run aquí](https://product-assistant-backend-28604544957.us-central1.run.app/docs)]
-* **Feature Flag (Kill Switch):** [[Ingresa tu URL del Gist o npoint.io aquí](https://www.npoint.io/docs/41dc8576d3cf632cf7e6)]
+* **Frontend (Aplicación Web):** [URL Frontend](https://product-assistant-frontend-28604544957.us-central1.run.app/)
+* **Backend (API de FastAPI):** [URL Backend](https://product-assistant-backend-28604544957.us-central1.run.app/docs)
+* **Feature Flag (Kill Switch):** [URL FF](https://www.npoint.io/docs/41dc8576d3cf632cf7e6)
 * **Base de Datos Vectorial:** ChromaDB Cloud Dashboard
 
 ## 🏗️ Arquitectura y Flujo de Trabajo
