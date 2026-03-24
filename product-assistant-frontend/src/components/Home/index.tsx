@@ -1,12 +1,11 @@
 import HomeCard from "./Card";
 import HomeAccessLink from "./AccessLink";
-import { HomeHeroProps } from "@/interfaces";
 import { FaDatabase } from "react-icons/fa";
 import { RiNextjsFill } from "react-icons/ri";
 import { SiFastapi } from "react-icons/si";
 import { FaPython } from "react-icons/fa6";
 
-const HomeHero = ({ isActive }:HomeHeroProps) => {
+const HomeHero = () => {
   return(
     <section
       className="
@@ -35,7 +34,7 @@ const HomeHero = ({ isActive }:HomeHeroProps) => {
             comparar características y acelerar la toma de decisiones.
           </div>
 
-          <HomeAccessLink isActive={isActive} />
+          <HomeAccessLink />
         </div>
 
         <div className="flex flex-col w-5/12 gap-5">

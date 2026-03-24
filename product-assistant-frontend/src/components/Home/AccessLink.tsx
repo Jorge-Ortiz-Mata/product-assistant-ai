@@ -1,10 +1,34 @@
+"use client";
 import Link from "next/link";
+import { axiosInstance } from "@/services/api_service";
+import { useEffect, useState } from "react";
+import BeatLoader from "react-spinners/BeatLoader";
 
-export interface HomeAccessLinkProps {
-  isActive: boolean;
-}
+const HomeAccessLink = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
-const HomeAccessLink = ({ isActive }:HomeAccessLinkProps) => {
+  useEffect(() => {
+    const checkAvailability = async () => {
+      const response = await axiosInstance.get('/ff');
+      const error = response.data.error;
+
+      if(error) {
+        setIsActive(false);
+        console.log("Something went wrong: ", error);
+      } else {
+        console.log("FF response: ", response.data);
+        setIsActive(response.data);
+      }
+
+      setIsLoading(false);
+    }
+
+    checkAvailability()
+  }, []);
+
+  if (isLoading) return <BeatLoader size={12} color="#22D3EE" />
+
   return(
     <div className="flex">
       {
