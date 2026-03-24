@@ -57,7 +57,8 @@ jobs:
           flags: |-
             --port 8000
             --cpu=1
-            --memory=512Mi
+            --memory=1Gi
+            --no-cpu-throttling
             --allow-unauthenticated
             --platform managed
             --min-instances 0

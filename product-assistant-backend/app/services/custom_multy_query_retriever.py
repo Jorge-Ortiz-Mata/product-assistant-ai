@@ -1,5 +1,6 @@
 import os
 import chromadb
+from functools import cache
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
 from langchain_classic.retrievers.multi_query import MultiQueryRetriever
@@ -39,6 +40,7 @@ class CustomMultyQueryRetriever:
     )
 
   @classmethod
+  @cache
   def vectorstore(cls):
     client = chromadb.CloudClient(
       api_key=os.getenv("CHROMA_API_TOKEN"),
